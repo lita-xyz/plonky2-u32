@@ -10,12 +10,9 @@ edition = "2021"
 anyhow = { version = "1.0.40", default-features = false }
 itertools = { version = "0.10.0", default-features = false }
 num = { version = "0.4", default-features = false }
-plonky2 = { git = "https://github.com/InternetMaximalism/polygon-plonky2.git", branch = "wasm", default-features = false }
-plonky2_util = { git = "https://github.com/InternetMaximalism/polygon-plonky2.git", branch = "wasm", default-features = false }
+plonky2 = { git = "https://github.com/lita-xyz/Plonky2.git", branch = "wasm", default-features = false, features = ["parallel", "std"] }
 
 
 [dev-dependencies]
-plonky2 = { git = "https://github.com/InternetMaximalism/polygon-plonky2.git", branch = "wasm", features = [
-    "gate_testing",
-] }
+plonky2 = { git = "https://github.com/lita-xyz/Plonky2.git", branch = "wasm", default-features = false, features = ["gate_testing", "parallel", "std"] }
 rand = { version = "0.8.4", default-features = false, features = ["getrandom"] }

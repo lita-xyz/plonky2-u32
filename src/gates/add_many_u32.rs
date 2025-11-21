@@ -156,12 +156,10 @@ impl<F: RichField + Extendable<D>, const D: usize> Gate<F, D> for U32AddManyGate
         mut yield_constr: StridedConstraintConsumer<F>,
     ) {
         for i in 0..self.num_ops {
-            let addends: Vec<F> = (0..self.num_addends)
-                .map(|j| vars.local_wires[self.wire_ith_op_jth_addend(i, j)])
-                .collect();
-            let carry = vars.local_wires[self.wire_ith_carry(i)];
-
-            let computed_output = addends.iter().fold(F::ZERO, |x, &y| x + y) + carry;
+            let mut computed_output = vars.local_wires[self.wire_ith_carry(i)];
+            for j in 0..self.num_addends {
+                computed_output += vars.local_wires[self.wire_ith_op_jth_addend(i, j)];
+            }
 
             let output_result = vars.local_wires[self.wire_ith_output_result(i)];
             let output_carry = vars.local_wires[self.wire_ith_output_carry(i)];
